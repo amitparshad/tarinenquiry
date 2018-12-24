@@ -1,0 +1,230 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" href="{% static "img/favicon.png" %}" type="image/png">
+	<title>GaaS Software</title>
+	<!-- Bootstrap CSS -->
+    <link href="{% static 'css/bootstrap.css'  %}" rel="stylesheet" type="text/css" media="all" />
+
+	<link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+	<link rel="stylesheet" href="{% static 'vendors/nice-select/css/nice-select.css' %}">
+	<link rel="stylesheet" href="{% static 'vendors/animate-css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'vendors/flaticon/flaticon.css' %}">
+	<!-- main css -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+<body>
+
+	<!--================Header Menu Area =================-->
+	<header class="header_area">
+		<div class="main_menu">
+
+
+
+
+			<nav class="navbar  navbar-inverse fixed-top navbar-expand-lg navbar-light bg-light  " role="navigation">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<a class="navbar-brand logo_h" href=""><img style="width:80px; height:80px;" src="{% static "img/train-logo.png" %}" alt=""></a>
+                    <p>Train Enquiry</p>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"style="background-color: #0A0A0A;"></span>
+						<span class="icon-bar" style="background-color: #0A0A0A;"></span>
+						<span class="icon-bar" style="background-color: #0A0A0A;"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+						<ul class="nav navbar-nav menu_nav justify-content-center">
+							<li class="nav-item active"><a class="nav-link" style="color: #0A0A0A;"  href="{% url "index" %}">Home</a></li>
+							<li class="nav-item"><a class="nav-link"style="color: #0A0A0A;" href="{% url "pnrstatus" %}">PNR STATUS</a></li>
+							<li class="nav-item"><a class="nav-link"style="color: #0A0A0A;" href="{% url "liverunningstatus" %}">Live running Status</a></li>
+							<li class="nav-item submenu dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false"style="color: #0A0A0A;">Seat Availability</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" style="color: #0A0A0A;" href="{% url "trainno" %}">Train no</a></li>
+								</ul>
+							</li>
+							<li class="nav-item submenu dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false" style="color: #0A0A0A;">Train real timings</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link"style="color: #0A0A0A;" href="{% url "traintimings" %}">train schedule</a></li>
+									<li class="nav-item"><a class="nav-link"style="color: #0A0A0A;" href="{% url "currenttimings" %}">Current timings</a></li>
+								</ul>
+							</li>
+							<li class="nav-item"><a class="nav-link"style="color: #0A0A0A;" href="{% url "contact" %}">Contact</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item"><a href="#" class="primary_btn text-uppercase" style="color: #0A0A0A;">Train Enquiry </a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+		</div>
+	</header>
+	<br/><br/><br/><br/><br/>
+	<!--==============form for input pnr number =============================-->
+	<form method="post">
+		{% csrf_token %}
+  <div class="form-group col-sm " style="text-align:center;">
+    <label for="exampleInputEmail1" style="text-align:center;">Enter 10 digit Pnr Number</label>
+    <input id="pnr" name="abc" type="integer" required="" class="form-control" style="text-align:center;"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Pnr Number">
+     <br/><br/>
+	  <button type="submit" class="btn btn-primary" >Submit</button>
+  </div>
+	</form>
+   <!--================pnr_status showing===================--->
+<br/>
+<div class="container">
+	<div class="row">
+    <div class="col badge-primary">
+		<p > PNR STATUS </p>
+    </div>
+	</div>
+  <div class="row">
+    <div class="col alert alert-secondary">
+      {{ pnr_status.train_name }}&nbsp {{ pnr_status.train_number }}
+    </div>
+    <div class="col alert alert-secondary">
+      PNR {{ pnr_status.pnr }}
+    </div>
+	  <div class="col alert alert-secondary">
+       date of journey {{ pnr_status.doj }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col alert alert-secondary">
+      From Station : {{ pnr_status.from_station }}
+    </div>
+    <div class="col alert alert-secondary">
+      To station : {{ pnr_status.to_station }}
+    </div>
+    <div class="col alert alert-secondary">
+      Reservation Upto : {{ pnr_status.res_upto }}
+    </div>
+  </div>
+	 <div class="row">
+    <div class="col alert alert-secondary">
+      Total passengesr : {{ pnr_status.total_passengers }}
+    </div>
+    <div class="col alert alert-secondary">
+      journey class : {{ pnr_status.journney_class }}
+    </div>
+    <div class="col alert alert-secondary">
+     Boarding Point : {{ pnr_status.boarding_point  }}
+    </div>
+  </div>
+	<div class="row">
+    <div class="col alert alert-secondary">
+      Booking Status : {{ pnr_status.booking_status }}
+    </div>
+    <div class="col alert alert-secondary">
+      Current_status : {{ pnr_status.current_status }}
+    </div>
+		{% if pnr_status.chart_prepared == True  %}
+       <div class="col alert badge-success">
+         ChartPrepared: {{ pnr_status.chart_prepared }}
+       </div>
+		{% else %}
+		<div class="col alert badge-danger">
+         ChartPrepared: {{ pnr_status.chart_prepared }}
+       </div>
+		{% endif %}
+  </div>
+
+</div>
+
+
+
+
+	<!--================Footer Area =================-->
+	<footer class="footer_area">
+		<div class="container">
+			<div class="row footer_inner">
+				<div class="col-lg-5 col-sm-6">
+					<aside class="f_widget ab_widget">
+						<div class="f_title">
+							<h3>About Me</h3>
+						</div>
+						<p>Do you want to be even more successful? Learn to love learning and growth. The more effort you put into
+							improving your skills,</p>
+						<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+					</aside>
+				</div>
+				<div class="col-lg-5 col-sm-6">
+					<aside class="f_widget news_widget">
+						<div class="f_title">
+							<h3>Newsletter</h3>
+						</div>
+						<p>Stay updated with our latest trends</p>
+						<div id="mc_embed_signup">
+							<form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+							 method="get" class="subscribe_form relative">
+								<div class="input-group d-flex flex-row">
+									<input name="EMAIL" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '"
+									 required="" type="email">
+									<button class="btn sub-btn"><span class="lnr lnr-arrow-right"></span></button>
+								</div>
+								<div class="mt-10 info"></div>
+							</form>
+						</div>
+					</aside>
+				</div>
+				<div class="col-lg-2">
+					<aside class="f_widget social_widget">
+						<div class="f_title">
+							<h3>Follow Me</h3>
+						</div>
+						<p>Let us be social</p>
+						<ul class="list">
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+							<li><a href="#"><i class="fa fa-behance"></i></a></li>
+						</ul>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================End Footer Area =================-->
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/popper.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/stellar.js' %}"></script>
+	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'vendors/nice-select/js/jquery.nice-select.min.js' %}"></script>
+	<script src="{% static 'vendors/isotope/imagesloaded.pkgd.min.js' %}"></script>
+	<script src="{% static 'vendors/isotope/isotope-min.js' %}"></script>
+	<script src="{% static 'vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+	<script src="{% static 'vendors/counter-up/jquery.waypoints.min.js' %}"></script>
+	<script src="{% static 'vendors/counter-up/jquery.counterup.min.js' %}"></script>
+	<script src="{% static 'js/mail-script.js' %}"></script>
+	<!--gmaps Js-->
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="{% static 'js/gmaps.min.js' %}"></script>
+	<script src="{% static 'js/theme.js' %}></script>
+	</body>
+
+</html>
